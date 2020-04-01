@@ -1,0 +1,15 @@
+<openerp>
+    <data noupdate="1">
+        <record id="cron_generate_sale_order_link_tracker" model="ir.cron">
+            <field name="name">Generate Sale Order Link Tracker</field>
+            <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">6</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="model" eval="'sale.order'" />
+            <field name="function" eval="'cron_generate_sale_order_link_tracker'" />
+            <field name="args" eval="" />
+        </record>                        
+    </data>
+</openerp>
