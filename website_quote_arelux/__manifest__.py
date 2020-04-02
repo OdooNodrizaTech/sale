@@ -11,6 +11,7 @@
         'data/ir_configparameter_data.xml',
         'views/sale_order_view.xml',
         'views/website_quote.xml',
+        'views/sale_quote_template.xml',
     ],
     'installable': True,
     'auto_install': False,    
