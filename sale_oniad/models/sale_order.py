@@ -13,15 +13,11 @@ class SaleOrder(models.Model):
         #check
         allow_confirm = True
         for obj in self:            
-            if obj.partner_id.vat==False:
-                allow_confirm = False
-                raise Warning("Es necesario definir VAT para el cliente antes de validar el pedido de venta.\n")                                                                                                     
-            else:
-                if obj.need_check_credit_limit==True:
-                    future_max_credit_limit_allow = obj.max_credit_limit_allow - obj.amount_total
-                    if future_max_credit_limit_allow<=0:
-                        allow_confirm = False
-                        raise Warning("No se puede confirmar la venta porque no hay credito disponible o el importe total de esta venta es superior al credito disponible ("+str(future_max_credit_limit_allow)+")")        
+            if obj.need_check_credit_limit==True:
+                future_max_credit_limit_allow = obj.max_credit_limit_allow - obj.amount_total
+                if future_max_credit_limit_allow<=0:
+                    allow_confirm = False
+                    raise Warning("No se puede confirmar la venta porque no hay credito disponible o el importe total de esta venta es superior al credito disponible ("+str(future_max_credit_limit_allow)+")")        
         #allow_confirm
         if allow_confirm==True:
             return super(SaleOrder, self).action_confirm()
