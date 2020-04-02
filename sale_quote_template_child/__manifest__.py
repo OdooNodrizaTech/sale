@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Sale Order Line Purchase Prices',
+    'name': 'Sale Quote Template Child',
     'version': '10.0.1.0.0',    
     'author': 'Odoo Nodriza Tech (ONT)',
     'website': 'https://nodrizatech.com/',
     'category': 'Tools',
     'license': 'AGPL-3',
-    'depends': ['base', 'sale'],
+    'depends': ['base', 'sale', 'website_quote'],
     'data': [
-        'data/ir_cron.xml',
+        'views/sale_order.xml',
+        'views/sale_quote_template_child.xml',
+        'security/ir.model.access.csv',
     ],
     'installable': True,
     'auto_install': False,    
