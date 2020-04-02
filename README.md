@@ -14,3 +14,5 @@ nombre | version
 [sale_objetives](sale_objetives/) | 10.0.1.0.0
 [sale_order_link_tracker](sale_order_link_tracker/) | 10.0.1.0.0
 [sale_orders_free_auto_invoiced](sale_orders_free_auto_invoiced/) | 10.0.1.0.0
+[sale_quote_template_child](sale_quote_template_child/) | 10.0.1.0.0
+[website_quote_arelux](website_quote_arelux/) | 10.0.1.0.0
