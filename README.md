@@ -17,5 +17,6 @@ nombre | version
 [sale_orders_free_auto_invoiced](sale_orders_free_auto_invoiced/) | 10.0.1.0.0
 [sale_orders_generate_invoice](sale_orders_generate_invoice/) | 10.0.1.0.0
 [sale_orders_set_date_invoice](sale_orders_set_date_invoice/) | 10.0.1.0.0
+[sale_orders_set_website_description](sale_orders_set_website_description/) | 10.0.1.0.0
 [sale_quote_template_child](sale_quote_template_child/) | 10.0.1.0.0
 [website_quote_arelux](website_quote_arelux/) | 10.0.1.0.0
