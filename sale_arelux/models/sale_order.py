@@ -8,6 +8,17 @@ from openerp.exceptions import Warning
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
+    @api.model
+    def create(self, values):
+        allow_create = True
+        #operations
+        if values['opportunity_id']==False and values['create_uid']!=1:
+            allow_create = False
+            raise Warning("Para crear un presupuesto es necesario definir un flujo")
+        #allow_create
+        if allow_create==True:
+            return super(SaleOrder, self).create(values)        
+    
     @api.multi
     def action_confirm(self):
         allow_confirm = True
