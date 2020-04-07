@@ -12,13 +12,14 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         allow_confirm = True
         #check
-        for obj in self:            
-            if obj.partner_id.vat==False:
-                allow_confirm = False
-                raise Warning("Es necesario definir VAT para el cliente antes de validar el pedido de venta.\n")
-            elif obj.partner_invoice_id.vat==False:
-                allow_confirm = False
-                raise Warning("Es necesario definir VAT para la direccion de facturacion antes de validar el pedido de venta.\n")                           
+        for obj in self:
+            if obj.amount_total>0:            
+                if obj.partner_id.vat==False:
+                    allow_confirm = False
+                    raise Warning("Es necesario definir VAT para el cliente antes de validar el pedido de venta.\n")
+                elif obj.partner_invoice_id.vat==False:
+                    allow_confirm = False
+                    raise Warning("Es necesario definir VAT para la direccion de facturacion antes de validar el pedido de venta.\n")                           
         #allow_confirm
         if allow_confirm==True:
             return super(SaleOrder, self).action_confirm()
