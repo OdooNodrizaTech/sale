@@ -7,6 +7,7 @@ Addons
 ----------------
 nombre | version
 --- | ---
+[cashondelivery](cashondelivery/) | 10.0.1.0.0
 [ont_base_sale](ont_base_sale/) | 10.0.1.0.0
 [ont_margin_sale](ont_margin_sale/) | 10.0.1.0.0
 [ont_margin_sale_arelux](ont_margin_sale_arelux/) | 10.0.1.0.0
