@@ -7,7 +7,9 @@
     'category': 'Tools',
     'license': 'AGPL-3',
     'depends': ['base', 'sale'],
-    'data': [],
+    'data': [
+        'views/sale_order.xml',
+    ],
     'installable': True,
     'auto_install': False,    
 }

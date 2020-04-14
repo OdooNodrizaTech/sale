@@ -125,7 +125,7 @@ class SaleOrder(models.Model):
                 for order_line_item in self.order_line:
                     message_order_line_id = {
                         'name': str(order_line_item.name.encode('utf-8')),
-                        'quantity': order_line_item.quantity,
+                        'product_qty': order_line_item.product_qty,
                         'price_unit': order_line_item.price_unit,
                         'price_subtotal': order_line_item.price_unit,
                         'discount': order_line_item.price_unit,
