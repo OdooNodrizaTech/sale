@@ -21,18 +21,7 @@
                 <field name="amount_total" string="Total"/>
             </field>                                                            
         </field>
-    </record>
-    <record id="ont_base_sale_view_order_form" model="ir.ui.view">
-        <field name="name">ont_base_sale_view_order_form</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form" />
-        <field name="priority" eval="20"/>                
-        <field name="arch" type="xml">
-            <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_unit']" position="replace">
-                <field name="price_unit" widget="monetary" />
-            </xpath>                                                                        
-        </field>
-    </record>    
+    </record>        
     <record id="ont_base_sale_view_sales_order_filter" model="ir.ui.view">
         <field name="name">ont_base_sale_view_sales_order_filter</field>
         <field name="model">sale.order</field>
