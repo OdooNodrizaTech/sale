@@ -54,7 +54,7 @@ class SaleOrder(models.Model):
         if len(sale_order_ids)>0:
             _logger.info(len(sale_order_ids))            
             for sale_order_id in sale_order_ids:
-                _logger.info('Generando factura '+str(sale_order_id.id))
+                _logger.info('Generando presupuesto '+str(sale_order_id.id))
                 #sale_order_id.action_upload_pdf_to_s3()
                 sale_order_id.action_send_sns(False)
                     
@@ -125,7 +125,7 @@ class SaleOrder(models.Model):
                 for order_line_item in self.order_line:
                     message_order_line_id = {
                         'name': str(order_line_item.name.encode('utf-8')),
-                        'product_qty': order_line_item.product_qty,
+                        'product_uom_qty': order_line_item.product_uom_qty,
                         'price_unit': order_line_item.price_unit,
                         'price_subtotal': order_line_item.price_unit,
                         'discount': order_line_item.price_unit,
