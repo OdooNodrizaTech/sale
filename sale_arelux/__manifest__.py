@@ -7,7 +7,10 @@
     'category': 'Tools',
     'license': 'AGPL-3',
     'depends': ['base', 'sale', 'delivery'],
-    'data': [],
+    'data': [
+        'data/ir_cron.xml',
+        'views/res_partner.xml',
+    ],
     'installable': True,
     'auto_install': False,    
 }
