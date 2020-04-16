@@ -56,15 +56,7 @@ class ResPartner(models.Model):
             
     @api.model
     def create(self, values):
-        # Override the original create function for the res.partner model
-        record = super(ResPartner, self).create(values)
-                        
-        if record.parent_id.id>0:
-            if record.parent_id.ar_qt_activity_type!=False:
-                record.ar_qt_activity_type = record.parent_id.ar_qt_activity_type
-
-            if record.parent_id.ar_qt_customer_type!=False:
-                record.ar_qt_customer_type = record.parent_id.ar_qt_customer_type
+        record = super(ResPartner, self).create(values)        
         #state_id
         if record.state_id.id>0:        
             product_pricelist_ids = self.env['product.pricelist'].search(
@@ -74,9 +66,9 @@ class ResPartner(models.Model):
                     ('state_ids', 'in', (record.state_id.id))
                 ]
             )
-            if product_pricelist_ids!=False:                
-                for product_pricelist_id in product_pricelist_ids:
-                    record.property_product_pricelist = product_pricelist_id.id               
+            if len(product_pricelist_ids)>0:
+                product_pricelist_id = product_pricelist_ids[0]
+                record.property_product_pricelist = product_pricelist_id.id                                   
             else:
                 record.property_product_pricelist = 1                
         #return                
