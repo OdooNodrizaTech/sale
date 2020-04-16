@@ -109,6 +109,29 @@
             <t t-if="quotation.template_id.id==13">
                 <p>If you prefer to do the installation yourself, we will give you all the information and instructions needed to perform it properly.</p>
             </t>
+            <br/><br/>
+            <t t-if="quotation.amount_total>0">
+                <t t-if="quotation.claim==False">
+                    <t t-if="quotation.payment_mode_id.id>0">
+                        <div class="acc_numbers" style="margin-top:30px;">
+                            <p style="text-decoration:underline;">Números de Cuenta a favor de TodoCesped/Arelux</p>
+                            <ul style="padding-left: 20px;">
+                                <t t-if="quotation.payment_mode_id.bank_account_link=='fixed'">
+                                    <li><span t-field="quotation.payment_mode_id.fixed_journal_id.bank_account_id.bank_id.public_name" />: <span t-field="quotation.payment_mode_id.fixed_journal_id.bank_account_id.acc_number" /></li>                        
+                                </t>
+                                <t t-if="quotation.payment_mode_id.bank_account_link=='variable'">
+                                    <t t-foreach="quotation.payment_mode_id.variable_journal_ids" t-as="journal_id">
+                                        <li><span t-field="journal_id.bank_account_id.bank_id.public_name" />: <span t-field="journal_id.bank_account_id.acc_number" /></li>
+                                    </t>
+                                </t>
+                            </ul>
+                            <br/>
+                            <p>Rogamos indiquen nombre y número de pedido. <b><span t-field="quotation.name" /></b></p>
+                            <p>Para mayor rapidez en la gestión de su pedido, remita el justificante de la transferencia a su comercial.</p>                            
+                        </div>
+                    </t>
+                </t>                        
+            </t>
         </xpath>
         <!--H1 discussion!-->
         <xpath expr="//section[@id='discussion']/h1" position="replace">
