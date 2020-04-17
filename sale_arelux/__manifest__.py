@@ -9,6 +9,7 @@
     'depends': ['base', 'sale', 'sale_crm', 'delivery'],
     'data': [
         'data/ir_cron.xml',
+        'views/sale_order.xml',
         'views/res_partner.xml',
     ],
     'installable': True,
