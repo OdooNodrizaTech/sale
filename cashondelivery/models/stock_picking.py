@@ -13,16 +13,15 @@ class StockPicking(models.Model):
     total_cashondelivery = fields.Float( 
         string='Total contrareembolso pedido'
     )
-    
-    @api.multi
-    def force_assign(self):
+        
+    @api.model
+    def create(self, values):
+        return_object = super(StockPicking, self).create(values)
         #operations
-        for obj in self:
-            if obj.group_id.id>0:
-                procurement_order_ids = self.env['procurement.order'].sudo().search([('group_id', '=', obj.group_id.id)])
-                if len(procurement_order_ids)>0:
-                    procurement_order_id = procurement_order_ids[0]
-                    if procurement_order_id.sale_line_id.id>0:
-                        obj.total_cashondelivery = procurement_order_id.sale_line_id.order_id.total_cashondelivery                                            
+        if return_object.origin!=False:
+            sale_order_ids = self.env['sale.order'].sudo().search([('name', '=', return_object.origin)])
+            if len(sale_order_ids)>0:
+                sale_order_id = sale_order_ids[0]
+                return_object.total_cashondelivery = sale_order_id.total_cashondelivery                    
         #return
-        return super(StockPicking, self).force_assign()
+        return return_object
