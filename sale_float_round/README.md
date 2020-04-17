@@ -1,10 +1,8 @@
-El módulo realizar los siguientes updates directamente con el objetivo de evitar campos con +2 decimales que crean "confusión" a la hora de filtrar en las vistas de Odoo,
+El módulo realiza operaciones de redondeo para sale
 
-```
-UPDATE account_move SET amount = ROUND(amount::numeric,3);
-UPDATE account_move_line SET debit = ROUND(debit::numeric,3);
-UPDATE account_move_line SET credit = ROUND(credit::numeric,3);
-UPDATE account_move_line SET balance = ROUND(balance::numeric,3);
-```
+## Crones
 
-El módulo contiene el siguiente cron: Fix Odoo Floar Round  que ejecuta los updates (1 vez al día).
+### Fix Odoo Floar Round (sale.order)
+Frecuencia: 1 vez al día (23:00)
+
+Descripción: Redondeo el campo amount_total de sale_order
