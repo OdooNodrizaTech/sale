@@ -12,6 +12,7 @@ nombre | version
 [ont_margin_sale](ont_margin_sale/) | 10.0.1.0.0
 [ont_margin_sale_arelux](ont_margin_sale_arelux/) | 10.0.1.0.0
 [sale_arelux](sale_arelux/) | 10.0.1.0.0
+[sale_float_round](sale_float_round/) | 10.0.1.0.0
 [sale_objetives](sale_objetives/) | 10.0.1.0.0
 [sale_oniad](sale_oniad/) | 10.0.1.0.0
 [sale_order_line_price_unit_float](sale_order_line_price_unit_float/) | 10.0.1.0.0
