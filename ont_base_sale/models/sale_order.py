@@ -14,10 +14,7 @@ class SaleOrder(models.Model):
         #check
         for obj in self:
             if obj.amount_total>0:            
-                if obj.partner_id.vat==False:
-                    allow_confirm = False
-                    raise Warning("Es necesario definir VAT para el cliente antes de validar el pedido de venta.\n")
-                elif obj.partner_invoice_id.vat==False:
+                if obj.partner_invoice_id.vat==False:
                     allow_confirm = False
                     raise Warning("Es necesario definir VAT para la direccion de facturacion antes de validar el pedido de venta.\n")                           
         #allow_confirm
