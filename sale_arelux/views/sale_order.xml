@@ -7,6 +7,9 @@
         <field name="arch" type="xml">
             <field name="date_order" position="replace">
                 <field name="date_order" readonly="1" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}"/>                 
+            </field>
+            <field name="user_id" position="replace">
+                <field name="user_id" readonly="1" />
             </field>            
         </field>
     </record>
