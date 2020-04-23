@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">            
             <xpath expr="//button[@name='action_cancel']" position="after">
-                <button name="action_send_sns_multi" type="object" string="Enviar SNS" attrs="{'invisible':[('state', 'not in', ('draft','cancel'))]}"  groups="base.group_no_one" />
+                <button name="action_send_sns_multi" type="object" string="Enviar SNS" attrs="{'invisible':[('state', 'in', ('draft','cancel'))]}"  groups="base.group_no_one" />
             </xpath>
         </field>
     </record>
