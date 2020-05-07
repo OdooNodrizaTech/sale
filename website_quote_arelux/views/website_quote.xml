@@ -32,6 +32,24 @@
                 </div>
             </h1>
         </xpath>
+        <!--Reemplazar bloque contacto user_id con campos personalizados!-->
+        <xpath expr="/t[1]/div[1]/div[2]/div[1]/div[1]" position="replace">
+            <div class="col-sm-7 col-xs-7">
+                <div t-if="quotation.user_id">
+                   <div>
+                        <span t-field="quotation.user_id.name"/>
+                   </div>
+                   <div t-if="quotation.user_id.commercial_phone">
+                       <i class="fa fa-phone"></i>
+                       <span t-field="quotation.user_id.commercial_phone"/>
+                   </div>
+                   <div>
+                       <i class="fa fa-envelope"></i>
+                       <span t-field="quotation.user_id.commercial_email"/>
+                   </div>
+                </div>
+            </div>
+        </xpath>
     </template>
     <template id="website_quote_arelux_so_quotation" name="website_quote_arelux_so_quotation" customize_show="True" inherit_id="website_quote.so_quotation" priority="20">
         <!--Reemplazar quotation_toolbar!-->
