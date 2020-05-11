@@ -10,9 +10,12 @@ nombre | version
 [cashondelivery](cashondelivery/) | 12.0.1.0.0
 [ont_base_sale](ont_base_sale/) | 12.0.1.0.0
 [ont_margin_sale](ont_margin_sale/) | 12.0.1.0.0
+[ont_margin_sale_arelux](ont_margin_sale_arelux/) | 12.0.1.0.0
 [sale_arelux](sale_arelux/) | 12.0.1.0.0
 [sale_oniad](sale_oniad/) | 12.0.1.0.0
 [sale_order_line_price_unit_float](sale_order_line_price_unit_float/) | 12.0.1.0.0
+[sale_order_link_tracker](sale_order_link_tracker/) | 12.0.1.0.0
+[sale_order_template_arelux](sale_order_template_arelux/) | 12.0.1.0.0
 
 ## Addons no soportados
 
