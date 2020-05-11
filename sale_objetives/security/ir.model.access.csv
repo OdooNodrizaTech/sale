@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_user_objetive_admin,sale.user.objetive,model_sale_user_objetive,,1,1,1,1
+access_sale_user_objetive_group_user,sale.user.objetive.user,model_sale_user_objetive,base.group_user,1,1,1,1
+access_sale_team_objetive_admin,sale.team.objetive,model_sale_team_objetive,,1,1,1,1
+access_sale_team_objetive_group_user,sale.team.objetive.user,model_sale_team_objetive,base.group_user,1,1,1,1
