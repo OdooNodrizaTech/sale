@@ -3,6 +3,7 @@ from odoo import api, models, fields
 
 class SaleOrderTemplateChild(models.Model):
     _name = 'sale.order.template.child'
+    _description = 'Sale Order Template Child'
 
     name = fields.Char(
         string="Nombre"
