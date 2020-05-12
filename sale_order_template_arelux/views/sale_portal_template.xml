@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>    
-    <template id="sale_order_template_arelux_sale_order_portal_content" name="sale_order_template_arelux_sale_order_portal_content" customize_show="True" inherit_id="sale.sale_order_portal_content" priority="20">       
+    <template id="sale_order_template_arelux_sale_order_portal_template" name="sale_order_template_arelux_sale_order_portal_template" customize_show="True" inherit_id="sale.sale_order_portal_template" priority="20">
+        <!--Texto inferior!-->
+        <xpath expr="//div[@id='sale_order_communication']" position="before">
+            <div id="contenido_instalaciones" class="col-12 col-lg justify-content-end card pb-5">
+                <div id="imagen_contenido_instalacionr">
+                    <img class="img img-responsive center-block mb16" src="/sale_order_template_arelux/static/src/img/quote_logos.jpg" style="width:100%;" />
+                </div>              
+                <div id="contenido_instalacion">
+                    <t t-if="sale_order.sale_order_template_id.id!=13 and sale_order.sale_order_template_id.id!=12">
+                        <p>Si quieres realizar tú mismo/a la instalación del césped artificial, desde <b>TodoCESPED</b> ponemos a tu disposición nuestra <a href="https://www.todocesped.es/instalacion-cesped-artificial/guia-instalacion-cesped-artificial/" target="_blank"><b>Guía de Instalación</b></a>, en la que encontrarás las explicaciones paso a paso para colocarlo sobre tierra, hormigón, cemento y baldosa.</p>
+                    </t>
+                    <t t-if="sale_order.sale_order_template_id.id==13">
+                        <p>If you prefer to do the installation yourself, we will give you all the information and instructions needed to perform it properly.</p>
+                    </t>
+                    <t t-if="sale_order.amount_total>0">
+                        <t t-if="sale_order.claim==False">
+                            <t t-if="sale_order.payment_mode_id.id>0">
+                                <br/>
+                                <div class="acc_numbers" style="margin-top:30px;">
+                                    <p style="text-decoration:underline;">Números de Cuenta a favor de TodoCesped/Arelux</p>
+                                    <ul style="padding-left: 20px;">
+                                        <t t-if="sale_order.payment_mode_id.bank_account_link=='fixed'">
+                                            <li><span t-field="sale_order.payment_mode_id.fixed_journal_id.bank_account_id.bank_id.public_name" />: <span t-field="quotation.payment_mode_id.fixed_journal_id.bank_account_id.acc_number" /></li>                        
+                                        </t>
+                                        <t t-if="sale_order.payment_mode_id.bank_account_link=='variable'">
+                                            <t t-foreach="sale_order.payment_mode_id.variable_journal_ids" t-as="journal_id">
+                                                <li><span t-field="journal_id.bank_account_id.bank_id.public_name" />: <span t-field="journal_id.bank_account_id.acc_number" /></li>
+                                            </t>
+                                        </t>
+                                    </ul>
+                                    <br/>
+                                    <p>Rogamos indiquen nombre y número de pedido. <b><span t-field="sale_order.name" /></b></p>
+                                    <p>Para mayor rapidez en la gestión de su pedido, remita el justificante de la transferencia a su comercial.</p>                            
+                                </div>
+                            </t>
+                        </t>                        
+                    </t>
+                </div>
+            </div>
+        </xpath>                
         <!--
         Reemplazar bloque contacto user_id con campos personalizados
         <xpath expr="//data/xpath[1]/div/t[1]/t[3]/ul[1]/li[3]/div[2]/div[2]" position="replace">
@@ -15,144 +54,48 @@
                 <a href="#discussion" class="small"><i class="fa fa-comment"></i> Send message</a>
             </div>            
         </xpath>
-        !-->
-    </template>
-    <template id="sale_order_template_arelux_sale_order_portal_template" name="sale_order_template_arelux_sale_order_portal_template" customize_show="True" inherit_id="sale.sale_order_portal_template" priority="20">                
-        <!--Texto inferior!-->
-        <xpath expr="//div[@id='quote_content']//div[@class='card']" position="before">
-            <section class="s_image_text">
-                <div class="container">
-                    <div class="row">
-                        <div class="mt32 mb32 col-md-12">
-                            <img class="img img-responsive center-block mb16" src="/sale_order_template_arelux/static/src/img/quote_logos.jpg" />
-                        </div>
-                    </div>
-                </div>
-            </section>              
-            <t t-if="sale_order.sale_order_template_id.id!=13 and sale_order.sale_order_template_id.id!=12">
-                <p>Si quieres realizar tú mismo/a la instalación del césped artificial, desde <b>TodoCESPED</b> ponemos a tu disposición nuestra <a href="https://www.todocesped.es/instalacion-cesped-artificial/guia-instalacion-cesped-artificial/" target="_blank"><b>Guía de Instalación</b></a>, en la que encontrarás las explicaciones paso a paso para colocarlo sobre tierra, hormigón, cemento y baldosa.</p>
-            </t>
-            <t t-if="sale_order.sale_order_template_id.id==13">
-                <p>If you prefer to do the installation yourself, we will give you all the information and instructions needed to perform it properly.</p>
-            </t>
-            <br/><br/>
-            <t t-if="sale_order.amount_total>0">
-                <t t-if="sale_order.claim==False">
-                    <t t-if="sale_order.payment_mode_id.id>0">
-                        <div class="acc_numbers" style="margin-top:30px;">
-                            <p style="text-decoration:underline;">Números de Cuenta a favor de TodoCesped/Arelux</p>
-                            <ul style="padding-left: 20px;">
-                                <t t-if="sale_order.payment_mode_id.bank_account_link=='fixed'">
-                                    <li><span t-field="sale_order.payment_mode_id.fixed_journal_id.bank_account_id.bank_id.public_name" />: <span t-field="sale_order.payment_mode_id.fixed_journal_id.bank_account_id.acc_number" /></li>                        
-                                </t>
-                                <t t-if="sale_order.payment_mode_id.bank_account_link=='variable'">
-                                    <t t-foreach="sale_order.payment_mode_id.variable_journal_ids" t-as="journal_id">
-                                        <li><span t-field="journal_id.bank_account_id.bank_id.public_name" />: <span t-field="journal_id.bank_account_id.acc_number" /></li>
-                                    </t>
-                                </t>
-                            </ul>
-                            <br/>
-                            <p>Rogamos indiquen nombre y número de pedido. <b><span t-field="sale_order.name" /></b></p>
-                            <p>Para mayor rapidez en la gestión de su pedido, remita el justificante de la transferencia a su comercial.</p>                            
-                        </div>
-                    </t>
-                </t>                        
-            </t>
-        </xpath>        
+        !-->                                
     </template>            
-    <template id="sale_portal_template_sale_order_portal_content" name="sale_portal_template_sale_order_portal_content" customize_show="True" inherit_id="sale.sale_order_portal_content">        
+    <template id="sale_portal_template_arelux_sale_order_portal_content" name="sale_portal_template_arelux_sale_order_portal_content" customize_show="True" inherit_id="sale.sale_order_portal_content">                
         <!--Tu presupuesto!-->
-        <xpath expr="//h3[@id='details']/table/[1]" position="after">
-            <t t-if="sale_order.sale_order_template_id.id!=13">
-                <h1 class="page-header">Tu presupuesto</h1>
-              <p>A continuación te presentamos tu presupuesto personalizado. Lo hemos adaptado a tus necesidades en función de la información que nos has facilitado</p>
-            </t>
-            <t t-if="sale_order.sale_order_template_id.id==13">
-                <h1 class="page-header">Your quotation</h1>
-                <p>Your personalised quotation is given below. It has been adapted to your needs and requirements, according to all the information you have given us.  </p>
-            </t>
+        <xpath expr="//section[@id='details']" position="before">
+            <div id="info_tu_presupuesto">
+              <t t-if="sale_order.sale_order_template_id.id!=13">
+                  <h3 class="page-header">Tu presupuesto</h3>
+                <p>A continuación te presentamos tu presupuesto personalizado. Lo hemos adaptado a tus necesidades en función de la información que nos has facilitado</p>
+              </t>
+              <t t-if="sale_order.sale_order_template_id.id==13">
+                  <h3 class="page-header">Your quotation</h3>
+                  <p>Your personalised quotation is given below. It has been adapted to your needs and requirements, according to all the information you have given us.  </p>
+              </t>
+            </div>
         </xpath>
-        <!--
-        Subtotal        
-        <xpath expr="//table/tbody/t[2]/tr[1]" position="replace">
-            <t t-if="sale_order.show_total == True">
-                <tr>
-                    <td></td><td></td><td></td>
-                    <td class="text-right"><strong>Subtotal:</strong></td>
-                    <td class="text-right">
-                        <strong data-id="total_amount" t-field="sale_order.amount_untaxed" t-options='{"widget": "monetary","display_currency": sale_order.pricelist_id.currency_id}'/>
-                    </td>
-                    <td></td>
-                </tr>
-            </t>
-        </xpath>
-        -->
-        <!--
-        Total
-        <xpath expr="//table/tbody/t[2]/tr[2]" position="replace">
-            <t t-if="sale_order.show_total == True">
-                <tr>
-                    <td></td><td></td><td></td>
-                    <td class="text-right"><strong>Total:</strong></td>
-                    <td class="text-right">
-                        <strong data-id="total_amount" t-field="sale_order.amount_total" t-options='{"widget": "monetary","display_currency": sale_order.pricelist_id.currency_id}'/>
-                    </td>
-                    <td></td>
-                </tr>
-            </t>
-        </xpath>
-        !-->
-        <!--
-        Impuestos
-        <xpath expr="//table/tbody/t[last()]/tr[last()]" position="replace">
-            <t t-if="sale_order.show_total == True">
-                <tr>
-                    <td></td><td></td><td></td>
-                    <t t-if="sale_order.sale_order_template_id.id!=13">
-                        <td class="text-right">Impuestos:</td>
-                    </t>
-                    <t t-if="sale_order.sale_order_template_id.id==13">
-                        <td class="text-right">Taxes:</td>
-                    </t>
-                    <td class="text-right">
-                        <span data-id="total_amount" t-field="sale_order.amount_tax" t-options='{"widget": "monetary","display_currency": sale_order.pricelist_id.currency_id}'/>
-                    </td>
-                    <td></td>
-                </tr>
-            </t>
-        </xpath>
-        !-->
         <!--Texto inferior!-->
-        <xpath expr="//table" position="after">
-            <t t-if="sale_order.sale_order_template_id.id!=13">
-                <t t-if="sale_order.show_total == False">
-                    <p>*IVA 21% no incluido</p>
-                </t>
-                <p>*Portes gratuitos en Península en pedidos superiores a 150€. Resto de zonas a consultar.</p>
-                <p>Portes incluidos en entregas a pie de calle.</p>
+        <xpath expr="//section[@id='details']" position="after">
+            <div id="texto_inferior">
+              <t t-if="sale_order.sale_order_template_id.id!=13">
+                  <t t-if="sale_order.show_total == False">
+                      <p>*IVA 21% no incluido</p>
+                  </t>
+                  <p>*Portes gratuitos en Península en pedidos superiores a 150€. Resto de zonas a consultar.</p>
+                  <p>Portes incluidos en entregas a pie de calle.</p>
+              </t>
+              <t t-if="sale_order.sale_order_template_id.id==13">
+                  <t t-if="sale_order.show_total == False">
+                      <p>*VAT not included</p>
+                  </t>
+                  <p>*Delivery is completely free in those orders over 150 € done in the Peninsula. Delivery prices from other areas should be consulted.</p>
+                  <p>TransportShipping costs are included in ground-floor deliveries. In case the customer wants the order to be given in a specific place or floor, it should be requested to the commercial who is managing the purchase when accepting the order. It will mean an extra charge on behalf of the customer.</p>
+              </t>
+            </div>
+            <!--Eliminar columna impuestos!-->
+            <style type="text/css">#sales_order_table thead th:nth-child(5), #sales_order_table tbody td:nth-child(5) { display:none!important;}</style>
+            <!--Eliminar tipo cantidad!-->
+            <style type="text/css"> #sales_order_table tbody td:nth-child(2) span:nth-child(2) { display:none!important;}</style>        
+            <!-- Ocultar bloque de total !-->
+            <t t-if="sale_order.show_total == False">
+              <style type="text/css">#total, #sidebar_content .card-body, #sidebar_content ul.list-group li:nth-child(4) { display:none;}</style>
             </t>
-            <t t-if="sale_order.sale_order_template_id.id==13">
-                <t t-if="sale_order.show_total == False">
-                    <p>*VAT not included</p>
-                </t>
-                <p>*Delivery is completely free in those orders over 150 € done in the Peninsula. Delivery prices from other areas should be consulted.</p>
-                <p>TransportShipping costs are included in ground-floor deliveries. In case the customer wants the order to be given in a specific place or floor, it should be requested to the commercial who is managing the purchase when accepting the order. It will mean an extra charge on behalf of the customer.</p>
-            </t>
-        </xpath>
-        <!--
-        Eliminar columna impuestos        
-        <xpath expr="//table/thead/tr/th[3]" position="replace"></xpath>
-        <xpath expr="//table/tbody/t[1]/t[2]/tr/td[3]" position="replace"></xpath>
-        !-->
-        <!--
-        Modificar columna cantidad
-        <xpath expr="//table/tbody/t[1]/t[2]/tr/td[2]" position="replace">
-            <td>
-               <div id="quote_qty">
-                   <span t-field="line.product_uom_qty"/>
-               </div>
-           </td>
-        </xpath>
-        !-->
+        </xpath>                
     </template>            
 </odoo>
