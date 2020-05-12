@@ -15,11 +15,6 @@ class SaleOrder(models.Model):
     @api.one    
     def action_generate_sale_order_link_tracker(self):        
         if self.link_tracker_id.id==0:
-            quote_viewed_pre = self.quote_viewed
-                         
-            if self.quote_viewed==False:
-                self.quote_viewed = True
-        
             web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
             url = web_base_url+'/quote/'+str(self.id)+'/'+str(self.access_token)
             link_tracker_vals = {
@@ -29,10 +24,7 @@ class SaleOrder(models.Model):
             link_tracker_obj = self.env['link.tracker'].sudo().create(link_tracker_vals)
             if link_tracker_obj!=False:
                 self.link_tracker_id = link_tracker_obj.id
-                
-                if quote_viewed_pre==False:
-                    self.quote_viewed = False
-        
+        #return
         return True                    
          
     @api.multi    
