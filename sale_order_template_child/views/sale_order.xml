@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_quote_template_child_view_order_form" model="ir.ui.view">
+        <field name="name">sale_quote_template_child_view_order_form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="priority" eval="15"/>                
+        <field name="arch" type="xml">
+            <field name="partner_shipping_id" position="after">
+                <label for="sale_order_template_child_id" attrs="{'invisible': [('claim','=',True)]}"/>
+                <div>
+                    <field name="sale_order_template_child_id" options="{'no_create': True, 'no_open': True}" domain="[('sale_order_template_id', '=', sale_order_template_id)]" attrs="{'invisible': [('claim','=',True)]}" />
+                </div>
+            </field>                                                            
+        </field>
+    </record>    
+</odoo>
