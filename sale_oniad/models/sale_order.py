@@ -74,7 +74,7 @@ class SaleOrder(models.Model):
             )
             #get_pdf
             #report_sale_pdf_content = self.env['report'].get_pdf([self.id], 'sale.report_saleorder')Old odoo10
-            report_sale_pdf_content = self.env.ref('sale.report_saleorder').sudo().render_qweb_pdf([self.id])[0]
+            report_sale_pdf_content = self.env.ref('sale.action_report_saleorder').sudo().render_qweb_pdf([self.id])[0]
             #put_object        
             response_put_object = s3.put_object(Body=report_sale_pdf_content, Bucket=s3_bucket_docs_oniad_com, Key='sale-order/'+str(self.uuid)+'.pdf')
 
