@@ -113,4 +113,4 @@ class SaleOrder(models.Model):
                             #action_auto_open
                             account_invoice_id.action_auto_open()                                                                        
                             #send mail
-                            #account_invoice_id.cron_account_invoice_auto_send_mail_item()
+                            account_invoice_id.cron_account_invoice_auto_send_mail_item()
