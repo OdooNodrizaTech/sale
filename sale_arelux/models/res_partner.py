@@ -78,6 +78,32 @@ class ResPartner(models.Model):
     def cron_operations_res_partners(self, cr=None, uid=False, context=None):
         #reset all 0
         self.env.cr.execute("UPDATE res_partner SET sale_order_count_store = 0 WHERE id > 0")
-        #update only with sales                    
-        self.env.cr.execute("UPDATE res_partner SET sale_order_count_store = (SELECT COUNT(so.id) AS total FROM sale_order AS so WHERE so.state IN ('sale', 'done') AND so.amount_total > 0 AND so.claim = False AND (so.partner_id = res_partner.id OR so.partner_invoice_id = res_partner.id OR so.partner_id IN (SELECT rp.id FROM res_partner AS rp WHERE rp.parent_id = res_partner.id) OR so.partner_invoice_id IN (SELECT rp.id FROM res_partner AS rp WHERE rp.parent_id = res_partner.id))) WHERE id IN (SELECT DISTINCT(so.partner_id) FROM sale_order AS so WHERE so.amount_total > 0 AND so.claim = False And so.state IN ('sale', 'done'))")                
-            
+        #update only with sales
+        sale_order_ids = self.env['sale.order'].search(
+            [
+                ('amount_total', '>', 0),
+                ('claim', '=', False),
+                ('state', 'in', ('sale', 'done'))
+            ]
+        )
+        if len(sale_order_ids)>0:
+            _logger.info('Total pedidos a actualizar')
+            _logger.info(len(sale_order_ids))
+            res_partner_ids = self.env['res.partner'].search(
+                [
+                    ('id', 'in', sale_order_ids.mapped('partner_id').ids)
+                ]
+            )
+            if len(res_partner_ids)>0:
+                _logger.info('Total contactos a actualizar')
+                _logger.info(len(res_partner_ids))
+                for res_partner_id in res_partner_ids:
+                    sale_order_ids = self.env['sale.order'].search(
+                        [
+                            ('partner_id', '=', res_partner_id.id),
+                            ('amount_total', '>', 0),
+                            ('claim', '=', False),
+                            ('state', 'in', ('sale', 'done'))
+                        ]
+                    )
+                    res_partner_id.sale_order_count_store = len(sale_order_ids)
