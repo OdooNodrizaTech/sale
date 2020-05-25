@@ -1,3 +1,2 @@
-import account_invoice
 import sale_order
 import stock_picking
