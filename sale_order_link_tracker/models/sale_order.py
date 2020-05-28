@@ -10,8 +10,17 @@ class SaleOrder(models.Model):
     link_tracker_id = fields.Many2one(
         comodel_name='link.tracker', 
         string='Link Tracker Id'
-    )                    
-    
+    )
+
+    @api.model
+    def create(self, values):
+        return_object = super(SaleOrder, self).create(values)
+        # operations
+        if return_object.access_token != False:
+            return_object.action_generate_sale_order_link_tracker()
+        # return
+        return return_object
+
     @api.one    
     def action_generate_sale_order_link_tracker(self):        
         if self.link_tracker_id.id==0:
