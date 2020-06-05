@@ -7,7 +7,7 @@
         <field name="priority" eval="20"/>                
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_done']" position="after">
-                <button name="action_regenerate_purchase_prices_multi" type="object" string="Calcular margen" attrs="{'invisible':[('state', 'not in', ('sale','done'))]}"  groups="base.group_no_one" />
+                <button name="action_regenerate_purchase_prices_multi" type="object" string="Calcular margen" attrs="{'invisible':[('state', 'not in', ('sale','done'))]}"  groups="base.group_system" />
             </xpath>                                                
         </field>
     </record>        
