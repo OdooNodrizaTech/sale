@@ -9,7 +9,7 @@ class SaleOrder(models.Model):
             
     @api.one
     def action_regenerate_purchase_prices(self):
-        if (self.state=='sale' or self.state=='done'):
+        if self.state in ['sale', 'done']:
             order_lines = {}
             for order_line in self.order_line:
                 order_lines[order_line.product_id.id] = {
