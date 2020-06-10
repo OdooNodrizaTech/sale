@@ -35,15 +35,14 @@ class SaleOrder(models.Model):
                 if need_delivery_something==True:
                     stock_picking_date_done = False
                     all_stock_picking_done = True
-                    
-                    stock_picking_ids = self.env['stock.picking'].search([('origin', '=', self.name),('state', 'not in', ('draft', 'cancel'))])
-                    if stock_picking_ids!=False:                            
-                        for stock_picking_id in stock_picking_ids:
-                            if stock_picking_id.state=='done':
-                                stock_picking_date_done = stock_picking_id.date_done
+                    # picking_ids
+                    for picking_id in self.picking_ids:
+                        if picking_id.picking_type_id.code == 'outgoing':
+                            if picking_id.state == 'done':
+                                stock_picking_date_done = picking_id.date_done
                             else:
                                 all_stock_picking_done = False
-                                                    
+                    #operations
                     if all_stock_picking_done==True and stock_picking_date_done!=False:
                         allow_generate_invoice = True                                                                                                        
                 else:
