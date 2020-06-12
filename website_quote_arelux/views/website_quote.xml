@@ -84,6 +84,16 @@
                 </t>
             </t>
         </xpath>
+        <!--Add Modal modalaccept!-->
+        <!--
+        <xpath expr="/t[1]/t[1]/body[1]/div[1]/div[2]/div[2]/div[8]/div[2]/div[2]/p[1]" position="after">
+            <div>
+                <p>Creo que NO hay que usar el modal modalacceptpartial</p>
+                <p>Opcion A: Ahora solo tendras que pagar XXXXX importe (el definido en un nuevo campo estilo payment_acquirer_type_amount_paid_amount) por el comercial, en el payment_acquirer.py de addon de ceca habria que modificar el importe para que pille el del nuevo campo del pedido</p>
+                <p>Opcion B: En el ceca.xml del addon de ceca, colocar en el propio formulario un campo con el importe que el usuario quiera pagar (habra que validarlo en el payment_acquirer.py para revisar importes imposibles)</p>
+            </div>
+        </xpath>
+        !-->
         <!--Transacciones!-->
         <xpath expr="//section[@id='discussion']" position="after">
             <section id="payment_transactions" class="container" t-if="quotation.payment_transaction_ids">
