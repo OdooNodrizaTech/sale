@@ -96,19 +96,25 @@ class SaleOrder(models.Model):
                     for partner_id in sale_order_ids_by_partner_id:
                         ids = sale_order_ids_by_partner_id[partner_id]                    
                         sale_order_ids_get = self.env['sale.order'].search([('id', 'in', ids)])
-                        return_invoice_create = sale_order_ids_get.action_invoice_create()
-                        #sale_order_ids
-                        for sale_order_id_get in sale_order_ids_get:
-                            sale_order_id_get.state = 'done'
-                        #invoice_ids
-                        invoice_id = return_invoice_create[0]
-                        account_invoice_id = self.env['account.invoice'].browse(invoice_id)
-                        #action_auto_create
-                        account_invoice_id.action_auto_create()                        
-                        #operations
-                        if account_invoice_id.amount_total>0:
-                            account_invoice_id.action_invoice_open()
-                            #action_auto_open
-                            account_invoice_id.action_auto_open()                                                                        
-                            #send mail
-                            account_invoice_id.cron_account_invoice_auto_send_mail_item()
+                        # action_invoice_create
+                        try:
+                            return_invoice_create = sale_order_ids_get.action_invoice_create()
+                            # sale_order_ids
+                            for sale_order_id_get in sale_order_ids_get:
+                                sale_order_id_get.state = 'done'
+                            # invoice_ids
+                            invoice_id = return_invoice_create[0]
+                            account_invoice_id = self.env['account.invoice'].browse(invoice_id)
+                            # action_auto_create
+                            account_invoice_id.action_auto_create()
+                            # operations
+                            if account_invoice_id.amount_total > 0:
+                                account_invoice_id.action_invoice_open()
+                                # action_auto_open
+                                account_invoice_id.action_auto_open()
+                                # send mail
+                                account_invoice_id.cron_account_invoice_auto_send_mail_item()
+                        except:
+                            _logger.info('Se ha producido un error al generar la factura de los pedidos')
+                            for sale_order_id_get in sale_order_ids_get:
+                                _logger.info(sale_order_id_get.name)
