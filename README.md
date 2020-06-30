@@ -13,6 +13,11 @@ nombre | version
 [ont_margin_sale_arelux](ont_margin_sale_arelux/) | 12.0.1.0.0
 [sale_arelux](sale_arelux/) | 12.0.1.0.0
 [sale_oniad](sale_oniad/) | 12.0.1.0.0
+[sale_order_confirm_bank_account_required](sale_order_confirm_bank_account_required/) | 12.0.1.0.0
+[sale_order_confirm_mandate_required](sale_order_confirm_mandate_required/) | 12.0.1.0.0
+[sale_order_confirm_partner_shipping_info_required](sale_order_confirm_partner_shipping_info_required/) | 12.0.1.0.0
+[sale_order_confirm_payment_mode_id_required](sale_order_confirm_payment_mode_id_required/) | 12.0.1.0.0
+[sale_order_confirm_payment_term_id_required](sale_order_confirm_payment_term_id_required/) | 12.0.1.0.0
 [sale_order_line_price_unit_float](sale_order_line_price_unit_float/) | 12.0.1.0.0
 [sale_order_link_tracker](sale_order_link_tracker/) | 12.0.1.0.0
 [sale_order_picking_priority](sale_order_picking_priority/) | 12.0.1.0.0
