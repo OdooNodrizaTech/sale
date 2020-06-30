@@ -16,6 +16,7 @@ nombre | version
 [sale_order_line_price_unit_float](sale_order_line_price_unit_float/) | 12.0.1.0.0
 [sale_order_link_tracker](sale_order_link_tracker/) | 12.0.1.0.0
 [sale_order_picking_priority](sale_order_picking_priority/) | 12.0.1.0.0
+[sale_order_pricelist_id_update_line_prices_button](sale_order_pricelist_id_update_line_prices_button/) | 12.0.1.0.0
 [sale_order_template_arelux](sale_order_template_arelux/) | 12.0.1.0.0
 [sale_order_template_child](sale_order_template_child/) | 12.0.1.0.0
 [sale_orders_done_full_invoiced](sale_orders_done_full_invoiced/) | 12.0.1.0.0
