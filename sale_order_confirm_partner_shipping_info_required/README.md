@@ -1,0 +1,1 @@
+Al confirmar un presupuesto, si está definido un transportista (carrier_id) se comprobará que a nivel de dirección de entrega (partner_shipping_id) estén definidos: Calle, ciudad, código postal, país y provincia.
