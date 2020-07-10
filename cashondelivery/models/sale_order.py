@@ -15,15 +15,14 @@ class SaleOrder(models.Model):
     @api.multi
     def action_confirm(self):
         allow_confirm = True
-        #config
-        account_payment_mode_id_cashondelivery = int(self.env['ir.config_parameter'].sudo().get_param('account_payment_mode_id_cashondelivery'))
         #check
-        for obj in self:
-            if obj.amount_total>0:                                        
-                if account_payment_mode_id_cashondelivery==self.payment_mode_id.id:
-                    if self.total_cashondelivery<10:
-                        allow_confirm = False
-                        raise Warning(_('Cash on delivery cannot be confirmed with a cash on delivery total of less than 10'))
+        for item in self:
+            if item.amount_total>0:
+                if itempayment_mode_id.id>0:
+                    if item.payment_mode_id.is_cashondelivery==True:
+                        if item.payment_mode_id.minimum_amount_cashondelivery>item.amount_total:
+                            allow_confirm = False
+                            raise Warning(_('Cash on delivery cannot be confirmed with a cash on delivery total of less than %s') % (item.payment_mode_id.minimum_amount_cashondelivery))
         #allow_confirm
         if allow_confirm==True:
             return super(SaleOrder, self).action_confirm()

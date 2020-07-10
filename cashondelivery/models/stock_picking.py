@@ -20,7 +20,6 @@ class StockPicking(models.Model):
         if return_object.origin!=False:
             sale_order_ids = self.env['sale.order'].sudo().search([('name', '=', return_object.origin)])
             if len(sale_order_ids)>0:
-                sale_order_id = sale_order_ids[0]
-                return_object.total_cashondelivery = sale_order_id.total_cashondelivery                    
+                return_object.total_cashondelivery = sale_order_ids[0].total_cashondelivery
         #return
         return return_object
