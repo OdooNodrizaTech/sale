@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <field name="active" position="after">
                 <field name="is_cashondelivery"/>
-                <field name="minimum_amount_cashondelivery"/>
+                <field name="minimum_amount_cashondelivery" attrs="{'invisible': [('is_cashondelivery','=',False)]}"/>
             </field>
         </field>
     </record>
