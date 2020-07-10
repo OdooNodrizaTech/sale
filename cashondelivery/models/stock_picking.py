@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, models, fields
 
@@ -11,7 +10,7 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
     
     total_cashondelivery = fields.Float( 
-        string='Total contrareembolso pedido'
+        string='Total cashondelivery'
     )
         
     @api.model
