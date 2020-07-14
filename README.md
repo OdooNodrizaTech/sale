@@ -8,11 +8,6 @@ Addons
 nombre | version
 --- | ---
 [cashondelivery](cashondelivery/) | 12.0.1.0.0
-[ont_base_sale](ont_base_sale/) | 12.0.1.0.0
-[ont_margin_sale](ont_margin_sale/) | 12.0.1.0.0
-[ont_margin_sale_arelux](ont_margin_sale_arelux/) | 12.0.1.0.0
-[sale_arelux](sale_arelux/) | 12.0.1.0.0
-[sale_oniad](sale_oniad/) | 12.0.1.0.0
 [sale_order_confirm_bank_account_required](sale_order_confirm_bank_account_required/) | 12.0.1.0.0
 [sale_order_confirm_mandate_required](sale_order_confirm_mandate_required/) | 12.0.1.0.0
 [sale_order_confirm_partner_shipping_info_required](sale_order_confirm_partner_shipping_info_required/) | 12.0.1.0.0
