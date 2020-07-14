@@ -8,13 +8,8 @@ Addons
 nombre | version
 --- | ---
 [cashondelivery](cashondelivery/) | 10.0.1.0.0
-[ont_base_sale](ont_base_sale/) | 10.0.1.0.0
-[ont_margin_sale](ont_margin_sale/) | 10.0.1.0.0
-[ont_margin_sale_arelux](ont_margin_sale_arelux/) | 10.0.1.0.0
-[sale_arelux](sale_arelux/) | 10.0.1.0.0
 [sale_float_round](sale_float_round/) | 10.0.1.0.0
 [sale_objetives](sale_objetives/) | 10.0.1.0.0
-[sale_oniad](sale_oniad/) | 10.0.1.0.0
 [sale_order_confirm_bank_account_required](sale_order_confirm_bank_account_required/) | 10.0.1.0.0
 [sale_order_confirm_mandate_required](sale_order_confirm_mandate_required/) | 10.0.1.0.0
 [sale_order_confirm_partner_shipping_info_required](sale_order_confirm_partner_shipping_info_required/) | 10.0.1.0.0
@@ -30,4 +25,3 @@ nombre | version
 [sale_orders_set_date_invoice](sale_orders_set_date_invoice/) | 10.0.1.0.0
 [sale_orders_set_website_description](sale_orders_set_website_description/) | 10.0.1.0.0
 [sale_quote_template_child](sale_quote_template_child/) | 10.0.1.0.0
-[website_quote_arelux](website_quote_arelux/) | 10.0.1.0.0
