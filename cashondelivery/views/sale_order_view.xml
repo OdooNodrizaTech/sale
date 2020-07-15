@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="priority" eval="20"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+            <xpath expr="//field[@name='payment_mode_id']" position="after">
                 <field name="total_cashondelivery" attrs="{'invisible': [('payment_mode_id.is_cashondelivery','=',False)]}"/>
             </xpath>
         </field>
