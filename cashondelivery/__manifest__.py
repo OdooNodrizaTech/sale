@@ -12,6 +12,7 @@
         "base",
         "sale",
         "stock",
+        "sale_stock",
         "payment"
     ],
     "data": [
