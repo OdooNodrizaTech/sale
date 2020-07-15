@@ -17,6 +17,7 @@ class SaleOrder(models.Model):
     )
 
     @api.multi
+    @api.onchange('payment_mode_id')
     def _compute_payment_mode_id_is_cashondelivery(self):
         self.ensure_one()
         if self.payment_mode_id.id > 0:
