@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
+
     <record id="cron_sale_orders_set_date_invoice" forcecreate="True" model="ir.cron">
         <field name="name">Sale Orders Set Date Invoice</field>
         <field name="active" eval="True"/>
@@ -12,4 +13,5 @@
         <field name="state">code</field>
         <field name="code">model.cron_sale_orders_set_date_invoice()</field>
     </record>
+
 </odoo>

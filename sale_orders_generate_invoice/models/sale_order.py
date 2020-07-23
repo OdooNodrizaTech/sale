@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 import logging
 _logger = logging.getLogger(__name__)
 
-from odoo import api, models, fields
+from odoo import api, models
 from datetime import datetime
 
 class SaleOrder(models.Model):
@@ -15,25 +14,25 @@ class SaleOrder(models.Model):
     
     @api.one
     def allow_generate_invoice(self):
-        #check
+        # check
         allow_generate_invoice = False
         need_delivery_something = False
         
-        if self.invoice_status=='to invoice':
+        if self.invoice_status == 'to invoice':
             total_qty_to_invoice = 0
                             
             for order_line in self.order_line:
-                if order_line.product_id.invoice_policy=='order':                        
+                if order_line.product_id.invoice_policy == 'order':
                     total_qty_to_invoice = total_qty_to_invoice + order_line.product_uom_qty
                 else:
                     total_qty_to_invoice = total_qty_to_invoice + order_line.qty_delivered
                     need_delivery_something = True                
             
-            if total_qty_to_invoice>0:
+            if total_qty_to_invoice > 0:
                 current_date = fields.Datetime.from_string(str(datetime.today().strftime("%Y-%m-%d %H:%M:%S")))
                 allow_generate_invoice = False
                 
-                if need_delivery_something==True:
+                if need_delivery_something:
                     stock_picking_date_done = False
                     all_stock_picking_done = True
                     # picking_ids
@@ -43,20 +42,19 @@ class SaleOrder(models.Model):
                                 stock_picking_date_done = picking_id.date_done
                             else:
                                 all_stock_picking_done = False
-                    #operations
-                    if all_stock_picking_done==True and stock_picking_date_done!=False:
+                    # operations
+                    if all_stock_picking_done and stock_picking_date_done:
                         allow_generate_invoice = True                                                                                                        
                 else:
                     allow_generate_invoice = True
-                
-                #check nif
-                if allow_generate_invoice==True:
-                    if self.partner_invoice_id.vat==False:
+                # check nif
+                if allow_generate_invoice:
+                    if self.partner_invoice_id.vat == False:
                         allow_generate_invoice = False
-                        self.action_account_invoice_not_create_partner_without_vat()#Fix Slack                        
-                        
-                        _logger.info('El pedido '+str(self.name)+' no se puede facturar porque el cliente NO tiene CIF')
-        #return
+                        self.action_account_invoice_not_create_partner_without_vat()# Fix Slack
+
+                        _logger.info(_('The order %s cannot be invoiced because the client does NOT have a CIF') % self.name)
+        # return
         return allow_generate_invoice
           
     @api.model    
@@ -64,13 +62,13 @@ class SaleOrder(models.Model):
         current_date = datetime.today()
         allow_generate_invoices = True
         
-        if current_date.day==31 and current_date.month==12:
+        if current_date.day == 31 and current_date.month == 12:
             allow_generate_invoices = False
             
-        if current_date.day==1 and current_date.month==1:
+        if current_date.day == 1 and current_date.month == 1:
             allow_generate_invoices = False
         
-        if allow_generate_invoices==True:
+        if allow_generate_invoices:
             sale_order_ids = self.env['sale.order'].search(
                 [
                     ('state', '=', 'sale'),
@@ -80,23 +78,27 @@ class SaleOrder(models.Model):
                     ('disable_autogenerate_create_invoice', '=', False)
                  ]
             )
-            if sale_order_ids!=False:
-                #group_by_partner_id
+            if sale_order_ids:
+                # group_by_partner_id
                 sale_order_ids_by_partner_id = {}
                 for sale_order_id in sale_order_ids:
-                    #check
+                    # check
                     allow_generate_invoice = sale_order_id.allow_generate_invoice()[0]                    
-                    #add if need
-                    if allow_generate_invoice==True:                    
+                    # add if need
+                    if allow_generate_invoice:
                         if sale_order_id.partner_invoice_id.id not in sale_order_ids_by_partner_id:
                             sale_order_ids_by_partner_id[sale_order_id.partner_invoice_id.id] = []
-                        #add_sale_order_ids
+                        # add_sale_order_ids
                         sale_order_ids_by_partner_id[sale_order_id.partner_invoice_id.id].append(sale_order_id.id)
                 
-                if len(sale_order_ids_by_partner_id)>0:                
+                if len(sale_order_ids_by_partner_id) > 0:
                     for partner_id in sale_order_ids_by_partner_id:
                         ids = sale_order_ids_by_partner_id[partner_id]                    
-                        sale_order_ids_get = self.env['sale.order'].search([('id', 'in', ids)])
+                        sale_order_ids_get = self.env['sale.order'].search(
+                            [
+                                ('id', 'in', ids)
+                            ]
+                        )
                         # action_invoice_create
                         try:
                             return_invoice_create = sale_order_ids_get.action_invoice_create()
@@ -116,6 +118,6 @@ class SaleOrder(models.Model):
                                 # send mail
                                 account_invoice_id.cron_account_invoice_auto_send_mail_item()
                         except:
-                            _logger.info('Se ha producido un error al generar la factura de los pedidos')
+                            _logger.info(_('An error occurred while generating the invoice for the orders'))
                             for sale_order_id_get in sale_order_ids_get:
                                 _logger.info(sale_order_id_get.name)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="sale_order_picking_priority_view_order_form" model="ir.ui.view">
         <field name="name">sale_order_picking_priority_view_order_form</field>
         <field name="model">sale.order</field>
@@ -7,8 +8,9 @@
         <field name="priority" eval="18"/>
         <field name="arch" type="xml">
             <field name="payment_term_id" position="after">
-                <field name="picking_priority" placeholder="Prioridad albarán" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}" />
+                <field name="picking_priority" placeholder="Picking priority" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}" />
             </field>
         </field>
     </record>
+
 </odoo>

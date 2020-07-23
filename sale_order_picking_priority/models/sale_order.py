@@ -1,22 +1,20 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
 from odoo import api, models, fields
 
-import logging
-_logger = logging.getLogger(__name__)
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     picking_priority = fields.Selection(
         [
-            ('0', 'No urgente'),
+            ('0', 'Not urgent'),
             ('1', 'Normal'),
-            ('2', 'Urgente'),
-            ('3', 'Muy Urgente'),
+            ('2', 'Urgent'),
+            ('3', 'Very urgent'),
         ],
         default='1',
-        string='Prioridad albaran',
+        string='Picking priority',
     )
 
     @api.multi

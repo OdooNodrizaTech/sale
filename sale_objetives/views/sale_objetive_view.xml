@@ -1,53 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
+<odoo>
     <data>
+
         <record id="sale_user_objetive_action_tree" model="ir.ui.view">
-            <field name="name">Objetivos usuario</field>
+            <field name="name">User objetives</field>
             <field name="model">sale.user.objetive</field>
              <field name="arch" type="xml">
-                <tree string="Objetivos usuario">
+                <tree string="User objetives">
                     <field name="user_id"/>
                     <field name="value"/>
                     <field name="date"/>                    
                 </tree>
             </field>            
         </record>
+
         <record id="sale_team_objetive_action_tree" model="ir.ui.view">
-            <field name="name">Objetivos equipo</field>
+            <field name="name">Team objetives</field>
             <field name="model">sale.team.objetive</field>
              <field name="arch" type="xml">
-                <tree string="Objetivos equipo">
+                <tree string="Team objetives">
                     <field name="team_id"/>
                     <field name="value"/>
                     <field name="date"/>                    
                 </tree>
             </field>            
         </record>
+
         <record model="ir.actions.act_window" id="sale_user_objetive_action">
-            <field name="name">Objetivos usuario</field>
+            <field name="name">User objetives</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.user.objetive</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
+
         <record model="ir.actions.act_window" id="sale_team_objetive_action">
-            <field name="name">Objetivos equipo</field>
+            <field name="name">Team objetives</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.team.objetive</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
+
         <menuitem 
             action="sale_user_objetive_action" 
-            name="Objetivos usuario"
+            name="User objetives"
             id="menuitem_sale_user_objetive" 
             parent="sale.menu_sale_config"
         />
         <menuitem 
             action="sale_team_objetive_action" 
-            name="Objetivos equipo"
+            name="Team objetives"
             id="menuitem_sale_team_objetive" 
             parent="sale.menu_sale_config"
         />
     </data>
-</openerp>
+</odoo>
