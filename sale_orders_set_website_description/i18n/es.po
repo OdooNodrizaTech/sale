@@ -1,0 +1,29 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_orders_set_website_description
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20200601\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-24 05:28+0000\n"
+"PO-Revision-Date: 2020-07-24 05:28+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_orders_set_website_description
+#: model:ir.model,name:sale_orders_set_website_description.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: sale_orders_set_website_description
+#: model:ir.actions.server,name:sale_orders_set_website_description.cron_sale_orders_set_website_description_ir_actions_server
+#: model:ir.cron,cron_name:sale_orders_set_website_description.cron_sale_orders_set_website_description
+#: model:ir.cron,name:sale_orders_set_website_description.cron_sale_orders_set_website_description
+msgid "Sale Orders Set Website Description"
+msgstr ""
+
