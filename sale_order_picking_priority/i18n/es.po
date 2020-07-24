@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_order_picking_priority
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20200601\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-24 05:19+0000\n"
+"PO-Revision-Date: 2020-07-24 05:19+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_order_picking_priority
+#: selection:sale.order,picking_priority:0
+msgid "Normal"
+msgstr ""
+
+#. module: sale_order_picking_priority
+#: selection:sale.order,picking_priority:0
+msgid "Not urgent"
+msgstr "No urgente"
+
+#. module: sale_order_picking_priority
+#: model:ir.model.fields,field_description:sale_order_picking_priority.field_sale_order__picking_priority
+#: model_terms:ir.ui.view,arch_db:sale_order_picking_priority.sale_order_picking_priority_view_order_form
+msgid "Picking priority"
+msgstr "Prioridad del albarán"
+
+#. module: sale_order_picking_priority
+#: model:ir.model,name:sale_order_picking_priority.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: sale_order_picking_priority
+#: selection:sale.order,picking_priority:0
+msgid "Urgent"
+msgstr "Urgente"
+
+#. module: sale_order_picking_priority
+#: selection:sale.order,picking_priority:0
+msgid "Very urgent"
+msgstr "Muy urgente"
+
