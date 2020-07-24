@@ -1,0 +1,105 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_objetives
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20200601\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-24 05:06+0000\n"
+"PO-Revision-Date: 2020-07-24 05:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_team_objetive__create_uid
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_user_objetive__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_team_objetive__create_date
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_user_objetive__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_team_objetive__date
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_user_objetive__date
+msgid "Date"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_team_objetive__display_name
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_user_objetive__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_team_objetive__id
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_user_objetive__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_team_objetive____last_update
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_user_objetive____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_team_objetive__write_uid
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_user_objetive__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_team_objetive__write_date
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_user_objetive__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model,name:sale_objetives.model_sale_team_objetive
+msgid "Sale Team Objetive"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model,name:sale_objetives.model_sale_user_objetive
+msgid "Sale User Objetive"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_team_objetive__team_id
+msgid "Team"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.actions.act_window,name:sale_objetives.sale_team_objetive_action
+#: model:ir.ui.menu,name:sale_objetives.menuitem_sale_team_objetive
+#: model_terms:ir.ui.view,arch_db:sale_objetives.sale_team_objetive_action_tree
+msgid "Team objetives"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_user_objetive__user_id
+msgid "User"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.actions.act_window,name:sale_objetives.sale_user_objetive_action
+#: model:ir.ui.menu,name:sale_objetives.menuitem_sale_user_objetive
+#: model_terms:ir.ui.view,arch_db:sale_objetives.sale_user_objetive_action_tree
+msgid "User objetives"
+msgstr ""
+
+#. module: sale_objetives
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_team_objetive__value
+#: model:ir.model.fields,field_description:sale_objetives.field_sale_user_objetive__value
+msgid "Value"
+msgstr ""
+
