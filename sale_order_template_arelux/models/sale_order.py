@@ -17,12 +17,13 @@ class SaleOrder(models.Model):
     )
     show_pay_button = fields.Boolean(
         string='Show Pay button',
-        compute='_show_pay_button',
+        compute='_compute_show_pay_button',
         store=False
     )
 
-    @api.one
-    def _show_pay_button(self):
+    @api.multi
+    def _compute_show_pay_button(self):
+        self.ensure_one()
         id_need_check = int(
             self.env['ir.config_parameter'].sudo().get_param(
                 'tpv_payment_mode_id_show_pay_button'

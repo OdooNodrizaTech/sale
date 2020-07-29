@@ -31,8 +31,8 @@ class SaleOrder(models.Model):
                 else:
                     total_qty_to_invoice = \
                         total_qty_to_invoice + order_line.qty_delivered
-                    need_delivery_something = True                
-            
+                    need_delivery_something = True
+
             if total_qty_to_invoice > 0:
                 allow_generate_invoice = False
 
@@ -48,7 +48,7 @@ class SaleOrder(models.Model):
                                 all_stock_picking_done = False
                     # operations
                     if all_stock_picking_done and stock_picking_date_done:
-                        allow_generate_invoice = True                                                                                                        
+                        allow_generate_invoice = True
                 else:
                     allow_generate_invoice = True
                 # check nif
@@ -61,7 +61,7 @@ class SaleOrder(models.Model):
         # return
         return allow_generate_invoice
 
-    @api.model    
+    @api.model
     def cron_action_orders_generate_invoice(self):
         current_date = datetime.today()
         allow_generate_invoices = True
@@ -77,27 +77,27 @@ class SaleOrder(models.Model):
                 [
                     ('state', '=', 'sale'),
                     ('amount_total', '>', 0),
-                    ('payment_mode_id', '!=', False), 
+                    ('payment_mode_id', '!=', False),
                     ('invoice_status', '=', 'to invoice'),
                     ('disable_autogenerate_create_invoice', '=', False)
-                 ]
+                ]
             )
             if items:
                 # group_by_partner_id
-                sale_order_ids_by_partner_id = {}
+                ids_by_partner_id = {}
                 for item in items:
                     # check
                     allow_generate_invoice = item.allow_generate_invoice()[0]
                     # add if need
                     if allow_generate_invoice:
-                        if item.partner_invoice_id.id not in sale_order_ids_by_partner_id:
-                            sale_order_ids_by_partner_id[item.partner_invoice_id.id] = []
+                        if item.partner_invoice_id.id not in ids_by_partner_id:
+                            ids_by_partner_id[item.partner_invoice_id.id] = []
                         # add_sale_order_ids
-                        sale_order_ids_by_partner_id[item.partner_invoice_id.id].append(item.id)
+                        ids_by_partner_id[item.partner_invoice_id.id].append(item.id)
                 
                 if len(sale_order_ids_by_partner_id) > 0:
-                    for partner_id in sale_order_ids_by_partner_id:
-                        ids = sale_order_ids_by_partner_id[partner_id]                    
+                    for partner_id in ids_by_partner_id:
+                        ids = ids_by_partner_id[partner_id]
                         items = self.env['sale.order'].search(
                             [
                                 ('id', 'in', ids)
@@ -105,12 +105,12 @@ class SaleOrder(models.Model):
                         )
                         # action_invoice_create
                         try:
-                            return_invoice_create = items.action_invoice_create()
+                            res = items.action_invoice_create()
                             # sale_order_ids
                             for item in items:
                                 item.state = 'done'
                             # invoice_ids
-                            invoice_id = self.env['account.invoice'].browse(return_invoice_create[0])
+                            invoice_id = self.env['account.invoice'].browse(res[0])
                             # action_auto_create
                             invoice_id.action_auto_create()
                             # operations

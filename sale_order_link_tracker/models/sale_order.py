@@ -30,8 +30,8 @@ class SaleOrder(models.Model):
         # return
         return True
 
-    @api.multi
-    def cron_generate_sale_order_link_tracker(self, cr=None, uid=False, context=None):
+    @api.model
+    def cron_generate_sale_order_link_tracker(self):
         items = self.env['sale.order'].search(
             [
                 ('link_tracker_id', '=', False)

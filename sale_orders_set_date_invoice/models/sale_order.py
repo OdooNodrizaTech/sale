@@ -5,20 +5,20 @@ from odoo import api, models, fields
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
-                        
+
     date_invoice = fields.Date(
         string='Invoice date'
     )
-    
+
     @api.model
     def cron_sale_orders_set_date_invoice(self):
         items = self.env['sale.order'].search(
             [
-                ('date_invoice', '=', False), 
+                ('date_invoice', '=', False),
                 ('invoice_status', '=', 'invoiced'),
                 ('state', 'in', ('sale', 'done')),
                 ('amount_untaxed', '>', 0)
-             ]
+            ]
         )
         if items:
             for item in items:
