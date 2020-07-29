@@ -1,7 +1,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models, _
-from odoo.exceptions import Warning
+from odoo.exceptions import Warning as UserError
 
 
 class SaleOrder(models.Model):
@@ -26,7 +26,7 @@ class SaleOrder(models.Model):
                         )
                         if len(items) == 0:
                             allow_action_confirm = False
-                            raise Warning(_('The sale cannot be confirmed because '
+                            raise UserError(_('The sale cannot be confirmed because '
                                             'there is no account created for the '
                                             'selected billing address'))
 

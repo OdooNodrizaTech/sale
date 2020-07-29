@@ -94,8 +94,8 @@ class SaleOrder(models.Model):
                             ids_by_partner_id[item.partner_invoice_id.id] = []
                         # add_sale_order_ids
                         ids_by_partner_id[item.partner_invoice_id.id].append(item.id)
-                
-                if len(sale_order_ids_by_partner_id) > 0:
+
+                if len(ids_by_partner_id) > 0:
                     for partner_id in ids_by_partner_id:
                         ids = ids_by_partner_id[partner_id]
                         items = self.env['sale.order'].search(
