@@ -54,8 +54,10 @@ class SaleOrder(models.Model):
                         if not item.partner_invoice_id.vat:
                             allow_generate_invoice = False
                             item.action_account_invoice_not_create_partner_without_vat()
-                            _logger.info(_('The order %s cannot be invoiced because '
-                                           'the client does NOT have a CIF') % item.name)
+                            _logger.info(
+                                _('The order %s cannot be invoiced because the client '
+                                  'does NOT have a CIF') % item.name
+                            )
         # return
         return allow_generate_invoice
 
