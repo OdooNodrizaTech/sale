@@ -6,7 +6,7 @@ from odoo import fields, models
 class SaleTeamObjetive(models.Model):
     _name = 'sale.team.objetive'
     _description = 'Sale Team Objetive'
-    
+
     team_id = fields.Many2one(
         comodel_name='crm.team',
         string='Team'

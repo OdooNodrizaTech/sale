@@ -25,7 +25,6 @@ nombre | version
 [sale_orders_free_auto_invoiced](sale_orders_free_auto_invoiced/) | 12.0.1.0.0
 [sale_orders_generate_invoice](sale_orders_generate_invoice/) | 12.0.1.0.0
 [sale_orders_set_date_invoice](sale_orders_set_date_invoice/) | 12.0.1.0.0
-[sale_orders_set_website_description](sale_orders_set_website_description/) | 12.0.1.0.0
 
 ## Addons no soportados
 
@@ -34,6 +33,9 @@ Actualmente no se observan 3 o + decimales en la BBDD por lo que probablemente e
 
 ### sale_quote_template_child
 Se ha renombrado a sale_order_template_child
+
+### sale_orders_set_website_description
+No es necesario usarlo en V12 porque el campo de website_description no existe en el sale_order
 
 ### website_quote_arelux
 Se ha renombrado a sale_order_template_arelux

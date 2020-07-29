@@ -3,6 +3,7 @@
 from odoo import api, models, _
 from odoo.exceptions import Warning
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 

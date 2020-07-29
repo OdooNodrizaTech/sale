@@ -1,40 +1,41 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 import logging
-_logger = logging.getLogger(__name__)
-
-from odoo import api, models
+from odoo import api, models, _
 from datetime import datetime
+
+_logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
-    
+
     @api.multi
     def action_account_invoice_not_create_partner_without_vat(self):
         self.ensure_one()
         return True
-    
+
     @api.multi
     def allow_generate_invoice(self):
         self.ensure_one()
         # check
         allow_generate_invoice = False
         need_delivery_something = False
-        
+
         if self.invoice_status == 'to invoice':
             total_qty_to_invoice = 0
-                            
+
             for order_line in self.order_line:
                 if order_line.product_id.invoice_policy == 'order':
-                    total_qty_to_invoice = total_qty_to_invoice + order_line.product_uom_qty
+                    total_qty_to_invoice = \
+                        total_qty_to_invoice + order_line.product_uom_qty
                 else:
-                    total_qty_to_invoice = total_qty_to_invoice + order_line.qty_delivered
+                    total_qty_to_invoice = \
+                        total_qty_to_invoice + order_line.qty_delivered
                     need_delivery_something = True                
             
             if total_qty_to_invoice > 0:
-                current_date = fields.Datetime.from_string(str(datetime.today().strftime("%Y-%m-%d %H:%M:%S")))
                 allow_generate_invoice = False
-                
+
                 if need_delivery_something:
                     stock_picking_date_done = False
                     all_stock_picking_done = True
@@ -54,23 +55,23 @@ class SaleOrder(models.Model):
                 if allow_generate_invoice:
                     if not self.partner_invoice_id.vat:
                         allow_generate_invoice = False
-                        self.action_account_invoice_not_create_partner_without_vat()  # Fix Slack
+                        self.action_account_invoice_not_create_partner_without_vat()
                         _logger.info(_('The order %s cannot be invoiced because '
                                        'the client does NOT have a CIF') % self.name)
         # return
         return allow_generate_invoice
-          
+
     @api.model    
-    def cron_action_orders_generate_invoice(self):        
+    def cron_action_orders_generate_invoice(self):
         current_date = datetime.today()
         allow_generate_invoices = True
-        
+
         if current_date.day == 31 and current_date.month == 12:
             allow_generate_invoices = False
-            
+
         if current_date.day == 1 and current_date.month == 1:
             allow_generate_invoices = False
-        
+
         if allow_generate_invoices:
             items = self.env['sale.order'].search(
                 [
@@ -109,18 +110,18 @@ class SaleOrder(models.Model):
                             for item in items:
                                 item.state = 'done'
                             # invoice_ids
-                            invoice_id = return_invoice_create[0]
-                            account_invoice_id = self.env['account.invoice'].browse(invoice_id)
+                            invoice_id = self.env['account.invoice'].browse(return_invoice_create[0])
                             # action_auto_create
-                            account_invoice_id.action_auto_create()
+                            invoice_id.action_auto_create()
                             # operations
-                            if account_invoice_id.amount_total > 0:
-                                account_invoice_id.action_invoice_open()
+                            if invoice_id.amount_total > 0:
+                                invoice_id.action_invoice_open()
                                 # action_auto_open
-                                account_invoice_id.action_auto_open()
+                                invoice_id.action_auto_open()
                                 # send mail
-                                account_invoice_id.cron_account_invoice_auto_send_mail_item()
+                                invoice_id.cron_account_invoice_auto_send_mail_item()
                         except:
-                            _logger.info(_('An error occurred while generating the invoice for the orders'))
+                            _logger.info(_('An error occurred while generating '
+                                           'the invoice for the orders'))
                             for item in items:
                                 _logger.info(item.name)

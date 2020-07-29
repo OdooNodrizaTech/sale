@@ -21,17 +21,17 @@ class SaleOrder(models.Model):
                 self.access_token
             )
             vals = {
-                'title': self.name,    
-                'url': url,                
+                'title': self.name,
+                'url': url
             }
             link_tracker_obj = self.env['link.tracker'].sudo().create(vals)
             if link_tracker_obj:
                 self.link_tracker_id = link_tracker_obj.id
         # return
-        return True                    
-         
-    @api.multi    
-    def cron_generate_sale_order_link_tracker(self, cr=None, uid=False, context=None):        
+        return True
+
+    @api.multi
+    def cron_generate_sale_order_link_tracker(self, cr=None, uid=False, context=None):
         items = self.env['sale.order'].search(
             [
                 ('link_tracker_id', '=', False)

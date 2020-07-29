@@ -4,7 +4,7 @@ from odoo import api, models
 
 
 class SaleOrder(models.Model):
-    _inherit = 'sale.order'                                
+    _inherit = 'sale.order'
 
     @api.model
     def cron_action_orders_free_auto_invoiced(self):
