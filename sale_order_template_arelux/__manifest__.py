@@ -10,7 +10,8 @@
     "license": "AGPL-3",
     "depends": [
         "base",
-        "sale"
+        "sale",
+        "sale_management"
     ],
     "data": [
         "data/ir_configparameter_data.xml",
