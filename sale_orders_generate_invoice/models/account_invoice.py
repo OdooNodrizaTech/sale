@@ -8,10 +8,8 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_auto_create(self):
-        self.ensure_one()
         return True
 
     @api.multi
     def action_auto_open(self):
-        self.ensure_one()
         return True

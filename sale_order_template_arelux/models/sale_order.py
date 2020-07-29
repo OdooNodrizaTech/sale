@@ -23,29 +23,28 @@ class SaleOrder(models.Model):
 
     @api.multi
     def _compute_show_pay_button(self):
-        self.ensure_one()
         id_need_check = int(
             self.env['ir.config_parameter'].sudo().get_param(
                 'tpv_payment_mode_id_show_pay_button'
             )
         )
-        for sale_order_obj in self:
-            sale_order_obj.show_pay_button = False
-            if sale_order_obj.proforma:
-                if sale_order_obj.payment_mode_id:
-                    if sale_order_obj.payment_mode_id.id == id_need_check:
-                        sale_order_obj.show_pay_button = True
+        for item in self:
+            item.show_pay_button = False
+            if item.proforma:
+                if item.payment_mode_id:
+                    if item.payment_mode_id.id == id_need_check:
+                        item.show_pay_button = True
                         # check if completyly pay
                         transactions_amount = 0
-                        for transaction_id in sale_order_obj.transaction_ids:
+                        for transaction_id in item.transaction_ids:
                             if transaction_id.state == 'done':
                                 transactions_amount += transaction_id.amount
                         # check
-                        if transactions_amount >= sale_order_obj.amount_total:
-                            sale_order_obj.show_pay_button = False
+                        if transactions_amount >= item.amount_total:
+                            item.show_pay_button = False
             # override (url_return for payment form)
             if request:
                 payment_ok_get = str(request.httprequest.args.get('payment_ok'))
                 if payment_ok_get is not None:
                     if payment_ok_get == '1':
-                        sale_order_obj.show_pay_button = False
+                        item.show_pay_button = False
