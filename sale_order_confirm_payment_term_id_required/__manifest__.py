@@ -2,7 +2,7 @@
 
 {
     "name": "Sale order confirm payment term id required",
-    "version": "10.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "Odoo Nodriza Tech (ONT), "
               "Odoo Community Association (OCA)",
     "website": "https://nodrizatech.com/",
