@@ -28,7 +28,8 @@ class SaleOrder(models.Model):
                             allow_action_confirm = False
                             raise UserError(
                                 _('The sale cannot be confirmed because there is no '
-                                  'bank mandate created for the selected billing address')
+                                  'bank mandate created for the selected '
+                                  'billing address')
                             )
 
         if allow_action_confirm:

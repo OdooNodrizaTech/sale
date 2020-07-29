@@ -26,9 +26,10 @@ class SaleOrder(models.Model):
                         )
                         if len(items) == 0:
                             allow_action_confirm = False
-                            raise UserError(_('The sale cannot be confirmed because '
-                                            'there is no account created for the '
-                                            'selected billing address'))
+                            raise UserError(
+                                _('The sale cannot be confirmed because there is no '
+                                  'account created for the selected billing address')
+                            )
 
         if allow_action_confirm:
             return super(SaleOrder, self).action_confirm()
