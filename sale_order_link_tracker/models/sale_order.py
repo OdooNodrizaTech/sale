@@ -13,20 +13,20 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_generate_sale_order_link_tracker(self):
-        self.ensure_one()
-        if self.link_tracker_id.id == 0:
-            url = '%s/quote/%s/%s' % (
-                self.env['ir.config_parameter'].sudo().get_param('web.base.url'),
-                self.id,
-                self.access_token
-            )
-            vals = {
-                'title': self.name,
-                'url': url
-            }
-            link_tracker_obj = self.env['link.tracker'].sudo().create(vals)
-            if link_tracker_obj:
-                self.link_tracker_id = link_tracker_obj.id
+        for item in self:
+            if item.link_tracker_id.id == 0:
+                url = '%s/quote/%s/%s' % (
+                    self.env['ir.config_parameter'].sudo().get_param('web.base.url'),
+                    item.id,
+                    item.access_token
+                )
+                vals = {
+                    'title': item.name,
+                    'url': url
+                }
+                link_tracker_obj = self.env['link.tracker'].sudo().create(vals)
+                if link_tracker_obj:
+                    item.link_tracker_id = link_tracker_obj.id
         # return
         return True
 

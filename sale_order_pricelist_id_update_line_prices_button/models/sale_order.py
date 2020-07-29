@@ -8,8 +8,8 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_update_lines_prices_pricelist(self):
-        self.ensure_one()
-        if self.state in ['draft', 'sent']:
-            if self.pricelist_id and self.order_line:
-                for order_line in self.order_line:
-                    order_line.product_uom_change()
+        for item in self:
+            if item.state in ['draft', 'sent']:
+                if item.pricelist_id and item.order_line:
+                    for order_line in item.order_line:
+                        order_line.product_uom_change()

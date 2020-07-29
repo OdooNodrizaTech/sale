@@ -11,53 +11,51 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_account_invoice_not_create_partner_without_vat(self):
-        self.ensure_one()
         return True
 
     @api.multi
     def allow_generate_invoice(self):
-        self.ensure_one()
         # check
         allow_generate_invoice = False
         need_delivery_something = False
+        for item in self:
+            if item.invoice_status == 'to invoice':
+                total_qty_to_invoice = 0
 
-        if self.invoice_status == 'to invoice':
-            total_qty_to_invoice = 0
+                for order_line in item.order_line:
+                    if order_line.product_id.invoice_policy == 'order':
+                        total_qty_to_invoice = \
+                            total_qty_to_invoice + order_line.product_uom_qty
+                    else:
+                        total_qty_to_invoice = \
+                            total_qty_to_invoice + order_line.qty_delivered
+                        need_delivery_something = True
 
-            for order_line in self.order_line:
-                if order_line.product_id.invoice_policy == 'order':
-                    total_qty_to_invoice = \
-                        total_qty_to_invoice + order_line.product_uom_qty
-                else:
-                    total_qty_to_invoice = \
-                        total_qty_to_invoice + order_line.qty_delivered
-                    need_delivery_something = True
+                if total_qty_to_invoice > 0:
+                    allow_generate_invoice = False
 
-            if total_qty_to_invoice > 0:
-                allow_generate_invoice = False
-
-                if need_delivery_something:
-                    stock_picking_date_done = False
-                    all_stock_picking_done = True
-                    # picking_ids
-                    for picking_id in self.picking_ids:
-                        if picking_id.picking_type_id.code == 'outgoing':
-                            if picking_id.state == 'done':
-                                stock_picking_date_done = picking_id.date_done
-                            else:
-                                all_stock_picking_done = False
-                    # operations
-                    if all_stock_picking_done and stock_picking_date_done:
+                    if need_delivery_something:
+                        stock_picking_date_done = False
+                        all_stock_picking_done = True
+                        # picking_ids
+                        for picking_id in item.picking_ids:
+                            if picking_id.picking_type_id.code == 'outgoing':
+                                if picking_id.state == 'done':
+                                    stock_picking_date_done = picking_id.date_done
+                                else:
+                                    all_stock_picking_done = False
+                        # operations
+                        if all_stock_picking_done and stock_picking_date_done:
+                            allow_generate_invoice = True
+                    else:
                         allow_generate_invoice = True
-                else:
-                    allow_generate_invoice = True
-                # check nif
-                if allow_generate_invoice:
-                    if not self.partner_invoice_id.vat:
-                        allow_generate_invoice = False
-                        self.action_account_invoice_not_create_partner_without_vat()
-                        _logger.info(_('The order %s cannot be invoiced because '
-                                       'the client does NOT have a CIF') % self.name)
+                    # check nif
+                    if allow_generate_invoice:
+                        if not item.partner_invoice_id.vat:
+                            allow_generate_invoice = False
+                            item.action_account_invoice_not_create_partner_without_vat()
+                            _logger.info(_('The order %s cannot be invoiced because '
+                                           'the client does NOT have a CIF') % item.name)
         # return
         return allow_generate_invoice
 
