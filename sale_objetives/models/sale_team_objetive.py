@@ -8,12 +8,12 @@ class SaleTeamObjetive(models.Model):
     _description = 'Sale Team Objetive'
     
     team_id = fields.Many2one(
-        comodel_name='crm.team',        
-        string='Team',
+        comodel_name='crm.team',
+        string='Team'
     )
-    date = fields.Date(        
+    date = fields.Date(
         string='Date'
     )
-    value = fields.Float(        
+    value = fields.Float(
         string='Value'
-    )                            
+    )

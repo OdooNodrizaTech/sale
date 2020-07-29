@@ -6,8 +6,9 @@ from odoo import api, models
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    @api.one
+    @api.multi
     def action_update_lines_prices_pricelist(self):
+        self.ensure_one()
         if self.state in ['draft', 'sent']:
             if self.pricelist_id and self.order_line:
                 for order_line in self.order_line:

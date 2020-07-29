@@ -9,13 +9,13 @@ class SaleOrder(models.Model):
 
     payment_acquirer_type_amount_paid = fields.Selection(
         selection=[
-            ('total','Total'), 
-            ('partial','Partial')
+            ('total', 'Total'),
+            ('partial', 'Partial')
         ],
         string='Payment amount type',
         default='total'
     )    
-    show_pay_button = fields.Boolean( 
+    show_pay_button = fields.Boolean(
         string='Show Pay button',
         compute='_show_pay_button',
         store=False
@@ -23,13 +23,13 @@ class SaleOrder(models.Model):
     
     @api.one        
     def _show_pay_button(self):        
-        tpv_payment_mode_id_show_pay_button = int(self.env['ir.config_parameter'].sudo().get_param('tpv_payment_mode_id_show_pay_button'))
+        id_need_check = int(self.env['ir.config_parameter'].sudo().get_param('tpv_payment_mode_id_show_pay_button'))
     
         for sale_order_obj in self:
             sale_order_obj.show_pay_button = False
             if sale_order_obj.proforma:
                 if sale_order_obj.payment_mode_id:
-                    if sale_order_obj.payment_mode_id.id == tpv_payment_mode_id_show_pay_button:
+                    if sale_order_obj.payment_mode_id.id == id_need_check:
                         sale_order_obj.show_pay_button = True    
                         # check if completyly pay
                         transactions_amount = 0                        
@@ -44,4 +44,4 @@ class SaleOrder(models.Model):
                 payment_ok_get = str(request.httprequest.args.get('payment_ok'))
                 if payment_ok_get != None:
                     if payment_ok_get == '1':
-                        sale_order_obj.show_pay_button = False                        
+                        sale_order_obj.show_pay_button = False

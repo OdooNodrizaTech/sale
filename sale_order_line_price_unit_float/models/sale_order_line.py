@@ -10,6 +10,6 @@ class SaleOrderLine(models.Model):
     price_unit = fields.Float(
         string='Unit Price',
         required=True,
-        digits=dp.get_precision('Price Unit'),        
+        digits=dp.get_precision('Price Unit'),
         default=0.0
     )

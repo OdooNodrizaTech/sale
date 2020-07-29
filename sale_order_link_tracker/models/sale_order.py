@@ -7,13 +7,14 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     link_tracker_id = fields.Many2one(
-        comodel_name='link.tracker', 
+        comodel_name='link.tracker',
         string='Link Tracker Id'
     )
 
-    @api.one    
-    def action_generate_sale_order_link_tracker(self):        
-        if self.link_tracker_id.id == 0 :
+    @api.multi
+    def action_generate_sale_order_link_tracker(self):
+        self.ensure_one()
+        if self.link_tracker_id.id == 0:
             url = '%s/quote/%s/%s' % (
                 self.env['ir.config_parameter'].sudo().get_param('web.base.url'),
                 self.id,
@@ -31,12 +32,12 @@ class SaleOrder(models.Model):
          
     @api.multi    
     def cron_generate_sale_order_link_tracker(self, cr=None, uid=False, context=None):        
-        sale_order_ids = self.env['sale.order'].search(
+        items = self.env['sale.order'].search(
             [
                 ('link_tracker_id', '=', False)
             ],
             limit=1000
         )
-        if sale_order_ids:
-            for sale_order_id in sale_order_ids:
-                sale_order_id.action_generate_sale_order_link_tracker()                                                           
+        if items:
+            for item in items:
+                item.action_generate_sale_order_link_tracker()

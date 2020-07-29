@@ -11,10 +11,10 @@ class SaleOrderTemplateChild(models.Model):
         string="Name"
     )
     sale_order_template_id = fields.Many2one(
-        comodel_name='sale.order.template',         
-        string='Order template',
+        comodel_name='sale.order.template',
+        string='Order template'
     )
-    website_description = fields.Html(         
+    website_description = fields.Html(
         string='Description',
         translate=True
-    )     
+    )

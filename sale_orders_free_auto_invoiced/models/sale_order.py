@@ -5,19 +5,19 @@ from odoo import api, models
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'                                
-   
-    @api.model    
+
+    @api.model
     def cron_action_orders_free_auto_invoiced(self):
-        sale_order_ids = self.env['sale.order'].search(
+        items = self.env['sale.order'].search(
             [
                 ('amount_total', '=', 0),
                 ('invoice_status', '=', 'to invoice')
             ]
         )
-        if sale_order_ids:
-            for sale_order_id in sale_order_ids:
+        if items:
+            for item in items:
                 # order_line
-                for order_line_item in sale_order_id.order_line:
+                for order_line_item in item.order_line:
                     order_line_item.invoice_status = 'no'
                 # invoice_status
-                sale_order_id.invoice_status = 'no'                                                                                          
+                item.invoice_status = 'no'

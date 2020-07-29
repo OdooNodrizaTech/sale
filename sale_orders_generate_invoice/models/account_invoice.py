@@ -6,10 +6,12 @@ from odoo import api, models
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
     
-    @api.one    
+    @api.multi
     def action_auto_create(self):
+        self.ensure_one()
         return True
         
-    @api.one    
+    @api.multi
     def action_auto_open(self):
-        return True                
+        self.ensure_one()
+        return True

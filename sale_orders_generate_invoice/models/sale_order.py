@@ -5,15 +5,18 @@ _logger = logging.getLogger(__name__)
 from odoo import api, models
 from datetime import datetime
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
-    @api.one    
+    @api.multi
     def action_account_invoice_not_create_partner_without_vat(self):
+        self.ensure_one()
         return True
     
-    @api.one
+    @api.multi
     def allow_generate_invoice(self):
+        self.ensure_one()
         # check
         allow_generate_invoice = False
         need_delivery_something = False
@@ -49,11 +52,11 @@ class SaleOrder(models.Model):
                     allow_generate_invoice = True
                 # check nif
                 if allow_generate_invoice:
-                    if self.partner_invoice_id.vat == False:
+                    if not self.partner_invoice_id.vat:
                         allow_generate_invoice = False
-                        self.action_account_invoice_not_create_partner_without_vat()# Fix Slack
-
-                        _logger.info(_('The order %s cannot be invoiced because the client does NOT have a CIF') % self.name)
+                        self.action_account_invoice_not_create_partner_without_vat()  # Fix Slack
+                        _logger.info(_('The order %s cannot be invoiced because '
+                                       'the client does NOT have a CIF') % self.name)
         # return
         return allow_generate_invoice
           
@@ -69,7 +72,7 @@ class SaleOrder(models.Model):
             allow_generate_invoices = False
         
         if allow_generate_invoices:
-            sale_order_ids = self.env['sale.order'].search(
+            items = self.env['sale.order'].search(
                 [
                     ('state', '=', 'sale'),
                     ('amount_total', '>', 0),
@@ -78,33 +81,33 @@ class SaleOrder(models.Model):
                     ('disable_autogenerate_create_invoice', '=', False)
                  ]
             )
-            if sale_order_ids:
+            if items:
                 # group_by_partner_id
                 sale_order_ids_by_partner_id = {}
-                for sale_order_id in sale_order_ids:
+                for item in items:
                     # check
-                    allow_generate_invoice = sale_order_id.allow_generate_invoice()[0]                    
+                    allow_generate_invoice = item.allow_generate_invoice()[0]
                     # add if need
                     if allow_generate_invoice:
-                        if sale_order_id.partner_invoice_id.id not in sale_order_ids_by_partner_id:
-                            sale_order_ids_by_partner_id[sale_order_id.partner_invoice_id.id] = []
+                        if item.partner_invoice_id.id not in sale_order_ids_by_partner_id:
+                            sale_order_ids_by_partner_id[item.partner_invoice_id.id] = []
                         # add_sale_order_ids
-                        sale_order_ids_by_partner_id[sale_order_id.partner_invoice_id.id].append(sale_order_id.id)
+                        sale_order_ids_by_partner_id[item.partner_invoice_id.id].append(item.id)
                 
                 if len(sale_order_ids_by_partner_id) > 0:
                     for partner_id in sale_order_ids_by_partner_id:
                         ids = sale_order_ids_by_partner_id[partner_id]                    
-                        sale_order_ids_get = self.env['sale.order'].search(
+                        items = self.env['sale.order'].search(
                             [
                                 ('id', 'in', ids)
                             ]
                         )
                         # action_invoice_create
                         try:
-                            return_invoice_create = sale_order_ids_get.action_invoice_create()
+                            return_invoice_create = items.action_invoice_create()
                             # sale_order_ids
-                            for sale_order_id_get in sale_order_ids_get:
-                                sale_order_id_get.state = 'done'
+                            for item in items:
+                                item.state = 'done'
                             # invoice_ids
                             invoice_id = return_invoice_create[0]
                             account_invoice_id = self.env['account.invoice'].browse(invoice_id)
@@ -119,5 +122,5 @@ class SaleOrder(models.Model):
                                 account_invoice_id.cron_account_invoice_auto_send_mail_item()
                         except:
                             _logger.info(_('An error occurred while generating the invoice for the orders'))
-                            for sale_order_id_get in sale_order_ids_get:
-                                _logger.info(sale_order_id_get.name)
+                            for item in items:
+                                _logger.info(item.name)
