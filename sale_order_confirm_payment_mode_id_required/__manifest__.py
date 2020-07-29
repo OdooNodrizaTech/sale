@@ -12,7 +12,7 @@
         "base",
         "sale",
         "account",
-        "account_payment_mode",  # https://github.com/OCA/bank-payment
+        "account_payment_sale",  # https://github.com/OCA/bank-payment
     ],
     "data": [],
     "installable": True
