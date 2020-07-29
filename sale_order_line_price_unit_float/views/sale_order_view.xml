@@ -5,7 +5,6 @@
         <field name="name">sale_order_line_price_unit_float_view_order_form</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form" />
-        <field name="priority" eval="20"/>                
         <field name="arch" type="xml">
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_unit']" position="replace">
                 <field name="price_unit" widget="monetary" />

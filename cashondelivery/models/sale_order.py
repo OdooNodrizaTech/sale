@@ -20,10 +20,12 @@ class SaleOrder(models.Model):
                 if item.payment_mode_id:
                     if item.payment_mode_id.is_cashondelivery:
                         if item.payment_mode_id.minimum_amount_cashondelivery > 0 \
-                                and item.total_cashondelivery < item.payment_mode_id.minimum_amount_cashondelivery:
+                                and item.total_cashondelivery < \
+                                item.payment_mode_id.minimum_amount_cashondelivery:
                             allow_confirm = False
                             raise UserError(
-                                _('Cash on delivery cannot be confirmed with a cash on delivery total of less than %s')
+                                _('Cash on delivery cannot be confirmed with '
+                                  'a cash on delivery total of less than %s')
                                 % item.payment_mode_id.minimum_amount_cashondelivery
                             )
         # allow_confirm

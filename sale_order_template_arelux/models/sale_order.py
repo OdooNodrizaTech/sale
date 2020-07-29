@@ -9,39 +9,43 @@ class SaleOrder(models.Model):
 
     payment_acquirer_type_amount_paid = fields.Selection(
         selection=[
-            ('total','Total'), 
-            ('partial','Partial')
+            ('total', 'Total'),
+            ('partial', 'Partial')
         ],
         string='Payment amount type',
         default='total'
-    )    
-    show_pay_button = fields.Boolean( 
+    )
+    show_pay_button = fields.Boolean(
         string='Show Pay button',
-        compute='_show_pay_button',
+        compute='_compute_show_pay_button',
         store=False
     )
-    
-    @api.one        
-    def _show_pay_button(self):        
-        tpv_payment_mode_id_show_pay_button = int(self.env['ir.config_parameter'].sudo().get_param('tpv_payment_mode_id_show_pay_button'))
-    
+
+    @api.multi
+    def _compute_show_pay_button(self):
+        self.ensure_one()
+        id_need_check = int(
+            self.env['ir.config_parameter'].sudo().get_param(
+                'tpv_payment_mode_id_show_pay_button'
+            )
+        )
         for sale_order_obj in self:
             sale_order_obj.show_pay_button = False
             if sale_order_obj.proforma:
                 if sale_order_obj.payment_mode_id:
-                    if sale_order_obj.payment_mode_id.id == tpv_payment_mode_id_show_pay_button:
-                        sale_order_obj.show_pay_button = True    
+                    if sale_order_obj.payment_mode_id.id == id_need_check:
+                        sale_order_obj.show_pay_button = True
                         # check if completyly pay
-                        transactions_amount = 0                        
+                        transactions_amount = 0
                         for transaction_id in sale_order_obj.transaction_ids:
                             if transaction_id.state == 'done':
-                                transactions_amount += payment_transaction_id.amount
+                                transactions_amount += transaction_id.amount
                         # check
                         if transactions_amount >= sale_order_obj.amount_total:
-                            sale_order_obj.show_pay_button = False                        
+                            sale_order_obj.show_pay_button = False
             # override (url_return for payment form)
-            if request:                           
+            if request:
                 payment_ok_get = str(request.httprequest.args.get('payment_ok'))
-                if payment_ok_get != None:
+                if payment_ok_get is not None:
                     if payment_ok_get == '1':
-                        sale_order_obj.show_pay_button = False                        
+                        sale_order_obj.show_pay_button = False
