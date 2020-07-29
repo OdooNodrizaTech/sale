@@ -10,7 +10,7 @@
             <field name="partner_shipping_id" position="after">
                 <label for="sale_order_template_child_id" attrs="{'invisible': [('claim','=',True)]}"/>
                 <div>
-                    <field name="sale_order_template_child_id" options="{'no_create': True, 'no_open': True}" domain="[('sale_order_template_id', '=', sale_order_template_id)]" attrs="{'invisible': [('claim','=',True)]}" />
+                    <field name="sale_order_template_child_id" options="{'no_create': True, 'no_open': True}" domain="[('sale_order_template_id', '=', sale_order_template_id)]" />
                 </div>
             </field>                                                            
         </field>
