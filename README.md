@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/OdooNodrizaTech/sale.svg?branch=12.0)](https://travis-ci.org/OdooNodrizaTech/sale)
+[![Coverage Status](https://coveralls.io/repos/github/OdooNodrizaTech/sale/badge.svg?branch=12.0)](https://coveralls.io/github/OdooNodrizaTech/sale?branch=12.0)
 
 sale
 =========
