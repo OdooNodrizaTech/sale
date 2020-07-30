@@ -1,2 +1,2 @@
 bank-payment
-crm
+OdooNodrizaTech-crm https://github.com/OdooNodrizaTech/crm
