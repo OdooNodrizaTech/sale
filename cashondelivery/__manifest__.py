@@ -13,7 +13,8 @@
         "sale",
         "stock",
         "sale_stock",
-        "payment"
+        "payment",
+        "account_payment_sale"  # https://github.com/OCA/bank-payment
     ],
     "data": [
         "views/account_payment_mode_view.xml",
