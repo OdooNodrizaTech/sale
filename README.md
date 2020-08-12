@@ -1,3 +1,4 @@
+[![Build Status](https://runbot.nodrizatech.com/runbot/badge/13/12.0.svg)](https://runbot.nodrizatech.com/runbot/repo/https-github-com-odoonodrizatech-sale-13)
 [![Build Status](https://travis-ci.org/OdooNodrizaTech/sale.svg?branch=12.0)](https://travis-ci.org/OdooNodrizaTech/sale)
 [![codecov](https://codecov.io/gh/OdooNodrizaTech/sale/branch/12.0/graph/badge.svg)](https://codecov.io/gh/OdooNodrizaTech/sale)
 
